@@ -11,7 +11,7 @@ pipeline {
         NEXUS_URL = "192.168.76.6:8081"
         NEXUS_REPOSITORY = "Bootcamp"
         NEXUS_CREDENTIAL_ID = "gui-id"
-        DOCKERHUB_CREDENTIALS=credentials("acavaleiro")
+        DOCKERHUB_CREDENTIALS=credentials("dockerhub")
         DOCKER_IMAGE_NAME="acavaleiro/spring-boot-app"
     }
     stages {
