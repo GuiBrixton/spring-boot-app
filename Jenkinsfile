@@ -8,8 +8,7 @@ pipeline {
     stages { 
          stage("Test"){
             steps {
-                sh "Test"
-                
+                junit "/target/test-results.xml"
             }
          }
         stage("Build") {
