@@ -8,7 +8,9 @@ pipeline {
     stages {
          stage('Test') {
             steps {
-                sh'Testing..'
+                jacoco()
+                junit "target/surefire-reports/*.xml"
+                
             }
         }
         stage("Build") {
