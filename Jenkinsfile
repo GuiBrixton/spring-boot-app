@@ -5,12 +5,12 @@ pipeline {
         }
     }
 
-    stages { 
-         stage("Test"){
+    stages {
+         stage('Test') {
             steps {
-                junit "/target/test-results.xml"
+                sh'Testing..'
             }
-         }
+        }
         stage("Build") {
             steps {
                 sh "mvn clean package -DskipTest"
