@@ -1,12 +1,18 @@
 pipeline {
     agent {
         node {
-            label "nodo-java"
+            label "java-nodo"
         }
-    }    stages{
-        stage("Build"){
-            steps{
-                sh "mvn clean package -DskipTests"
+    }
+
+    stages { 
+        stage("Build") {
+            steps {
+                sh "mvn clean package -DskipTest"
+                
             }
+
         }
-    }}
+    }
+
+}
