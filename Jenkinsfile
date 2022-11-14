@@ -1,3 +1,4 @@
+def versionPom = ""
 pipeline {
     agent {
         node {
@@ -10,6 +11,8 @@ pipeline {
         NEXUS_URL = "192.168.76.6:8081"
         NEXUS_REPOSITORY = "Bootcamp"
         NEXUS_CREDENTIAL_ID = "gui-id"
+        DOCKERHUB_CREDENTIALS=credentials("acavaleiro")
+        DOCKER_IMAGE_NAME="acavaleiro/spring-boot-app"
     }
     stages {
          stage('Test') {
@@ -27,6 +30,7 @@ pipeline {
 
         }
       stage("Publish to Nexus") {
+
             steps {
                 script {
                     // Read POM xml file using 'readMavenPom' step , this step 'readMavenPom' is included in: https://plugins.jenkins.io/pipeline-utility-steps
@@ -68,6 +72,13 @@ pipeline {
                 }
             }
         }
+        stage("Construir ImagenDocker "){
+         steps {
+            sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+            sh "docker build -t $DOCKER_IMAGE_NAME:${versionPom} ."
+            sh "docker push $DOCKER_IMAGE_NAME:${versionPom}"
+              }
     }
 
+}
 }
