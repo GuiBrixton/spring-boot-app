@@ -46,7 +46,7 @@ pipeline {
                         if(artifactExists) {
                         echo "*** File: ${artifactPath}, group: ${pom.groupId}, packaging: ${pom.packaging}, version ${pom.version}"
                         versionPom = "${pom.version}"                       
-                             nexusArtifactUploader(
+                            nexusArtifactUploader(
                             nexusVersion: NEXUS_VERSION,
                             protocol: NEXUS_PROTOCOL,
                             nexusUrl: NEXUS_URL,
@@ -59,7 +59,7 @@ pipeline {
                                 [artifactId: pom.artifactId,
                                 classifier: "",
                                 file: artifactPath,
-                                type: pom.packaging],                                // Lets upload the pom.xml file for additional information for Transitive dependencies
+                                type: pom.packaging], // Lets upload the pom.xml file for additional information for Transitive dependencies
                                 [artifactId: pom.artifactId,
                                 classifier: "",
                                 file: "pom.xml",
@@ -78,7 +78,22 @@ pipeline {
             sh "docker build -t $DOCKER_IMAGE_NAME:${versionPom} ."
             sh "docker push $DOCKER_IMAGE_NAME:${versionPom}"
               }
-    }
+            }
+        stage("Deploy to K8s")
+        {
+            steps{
+                sh "git clone https://github.com/Guibrixton/kubernetes-helm-docker-config.git configuracion --branch demo-java"
+                sh "kubectl apply -f configuracion/kubernetes-deployments/spring-boot-app/deployment.yaml --kubeconfig=configuracion/kubernetes-config/config"
+            }
+        }
 
-}
+    }
+   post{
+      always{
+      sh "docker logout"
+
+           }
+
+      }    
+
 }
