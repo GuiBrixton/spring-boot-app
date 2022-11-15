@@ -2,7 +2,7 @@ def versionPom = ""
 pipeline {
     agent {
         node {
-            label "nodo-java"
+            label "nodo-java2"
         }
     }
      environment {
