@@ -17,8 +17,8 @@ pipeline {
     stages {
          stage('Test') {
             steps {
-                jacoco()
-                junit "target/surefire-reports/*.xml"
+                
+                echo "Tests"
                 
             }
         }
