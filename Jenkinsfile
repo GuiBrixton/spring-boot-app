@@ -8,7 +8,7 @@ kind: Pod
 spec:
   containers:
   - name: shell
-    image: acavaleiro/jenkins-nodo-java-bootcamp:1.0
+     image: acavaleiro/jenkins-nodo-java-bootcamp:1.0 
     volumeMounts:
     - mountPath: /var/run/docker.sock
       name: docker-socket-volume
@@ -69,8 +69,8 @@ spec:
             sh 'rm -r configuracion'
           }
         }
-        sh "git clone https://github.com/Guibrixton/kubernetes-helm-docker-config.git configuracion --branch demo-java"
-        sh "kubectl apply -f configuracion/kubernetes-deployments/spring-boot-app/deployment.yaml --kubeconfig=configuracion/kubernetes-config/config"
+        sh "git clone https://github.com/Guibrixton/kubernetes-helm-docker-config.git configuracion --branch test-implementation"
+        sh "kubectl apply -f configuracion/kubernetes-deployment/spring-boot-app/manifest.yaml --kubeconfig=configuracion/kubernetes-config/config"
       }
 
     }
