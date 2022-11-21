@@ -72,10 +72,8 @@ spec:
         sh "git clone https://github.com/Guibrixton/kubernetes-helm-docker-config.git configuracion --branch test-implementation"
         sh "kubectl apply -f configuracion/kubernetes-deployment/spring-boot-app/manifest.yaml --kubeconfig=configuracion/kubernetes-config/config"
       }
-
     }
   }
-
   post {
     always {
       sh 'docker logout'
