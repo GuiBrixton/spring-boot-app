@@ -29,8 +29,8 @@ spec:
     }
 
   environment {
-    registryCredential='docker-hub-credentials'
-    registryFrontend = 'lhamaoka/pring-boot-app'
+    registryCredential='acavaleiro'
+    registryFrontend = 'acavaleiro/spring-boot-app'
   }
 
   stages {
