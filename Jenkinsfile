@@ -8,7 +8,7 @@ kind: Pod
 spec:
   containers:
   - name: shell
-     image: acavaleiro/jenkins-nodo-java-bootcamp:1.0 
+    image: acavaleiro/jenkins-nodo-java-bootcamp:1.0 
     volumeMounts:
     - mountPath: /var/run/docker.sock
       name: docker-socket-volume
@@ -23,7 +23,7 @@ spec:
     - sleep
     args:
     - infinity
-'''
+        '''
             defaultContainer 'shell'
         }
     }
