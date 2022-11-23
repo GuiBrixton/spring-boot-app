@@ -50,6 +50,7 @@ spec:
                             sh 'rm -r apache-jmeter-5.5.tgz'
                         }
                         sh 'apt install -y wget'
+                        sh 'apt install -y python3-pip'
                         sh 'wget https://dlcdn.apache.org//jmeter/binaries/apache-jmeter-5.5.tgz' 
                         sh 'tar xvf apache-jmeter-5.5.tgz'
                         sh 'cp plugins/*.jar apache-jmeter-5.5/lib/ext'
@@ -75,8 +76,8 @@ spec:
                             sh 'rm -r apache-jmeter-5.5.tgz'
                         }
                         sh './run.sh -n -t test/perform_test.jmx -l test/perform_test.jtl -Jthreads=2 -Jrampup=1 -Jduration=10'
-                        sh 'docker cp jmeter:/home/jmeter/apache-jmeter-5.5/test/perform_test.jtl /home/jenkins/workspace/_app_perform-test-implementation/jmeter-docker/test'
-                        perfReport '/home/jenkins/workspace/_app_perform-test-implementation/jmeter-docker/test/perform_test.jtl'
+                        sh 'docker cp jmeter:/home/jmeter/apache-jmeter-5.5/test/perform_test.jtl $(pwd)/test'
+                        perfReport '$(pwd)/test/perform_test.jtl'
                      }
 
                 }
@@ -90,7 +91,7 @@ spec:
                         sh 'export PATH=$PATH:/home/jenkins/.local/bin'
 
                         BlazeMeterTest: {
-                            sh '/home/jenkins/.local/bin/bzt test/perform_test.jtl -report'
+                            sh 'bzt test/perform_test.jtl -report'
                         }
                      }
                 }
